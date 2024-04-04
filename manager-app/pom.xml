@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Здесь определение версии модели Maven -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Здесь указание родительского проекта -->
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>selmag-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- Здесь указание идентификатора артефакта -->
+    <artifactId>manager-app</artifactId>
+
+    <!-- Здесь определение свойств проекта -->
+    <properties>
+        <!-- Здесь указание исходной версии компилятора -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <!-- Здесь указание целевой версии компилятора -->
+        <maven.compiler.target>17</maven.compiler.target>
+        <!-- Здесь указание кодировки исходных файлов -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- Здесь определение зависимостей проекта -->
+    <dependencies>
+        <!-- Зависимость от spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Зависимость от spring-boot-starter-thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- Зависимость от lombok (необязательная) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <!-- Помечена как необязательная -->
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Зависимость от spring-boot-devtools (запускается в runtime) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- Здесь указание области действия зависимости (runtime) -->
+            <scope>runtime</scope>
+            <!-- Помечена как необязательная -->
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <!-- Здесь определение конфигурации сборки проекта -->
+    <build>
+        <plugins>
+            <!-- Плагин Maven для Spring Boot -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spting-boot.version}</version>
+                <!-- Конфигурация плагина -->
+                <configuration>
+                    <!-- Исключение зависимости при упаковке -->
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <!-- Определение цели выполнения плагина -->
+                <executions>
+                    <execution>
+                        <!-- Цель - перепаковка (repackage) -->
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>
