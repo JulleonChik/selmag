@@ -1,15 +1,16 @@
 package org.julleon.controller;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.julleon.controller.payload.NewProductPayload;
+import org.julleon.controller.payload.CreateProductPayload;
 import org.julleon.entity.Product;
 import org.julleon.service.ProductService;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,25 +20,33 @@ import java.util.List;
 public class ProductsController {
     private final ProductService productService;
 
-    @GetMapping( "list")
-    public String getProductsList(
-            Model model
-    ) {
+
+    @GetMapping("create")
+    public String getCreateProductForm() {
+        return "catalogue/products/new_product";
+    }
+
+
+    @GetMapping("list")
+    public String getProductsList(Model model) {
         List<Product> allProducts = this.productService.findAllProducts();
         model.addAttribute("products", allProducts);
         return "catalogue/products/list";
     }
 
-    @GetMapping("create")
-    public String getCreateProductForm() {
-        return "catalogue/products/form_create_product";
-    }
-
     @PostMapping("create")
     public String createProduct(
-            NewProductPayload payload
-    ) {
-        Product product = this.productService.createProduct(payload.title(), payload.description());
-        return "redirect:/catalogue/products/list";
+            @Valid CreateProductPayload payload, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            model.addAttribute("payload", payload);
+            model.addAttribute("errorMessages", errorMessages);
+            return "catalogue/products/new_product";
+        } else {
+            Product product = this.productService.createProduct(payload);
+            return "redirect:/catalogue/products/%d".formatted(product.getId());
+        }
     }
 }
