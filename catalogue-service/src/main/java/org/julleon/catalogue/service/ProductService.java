@@ -1,8 +1,9 @@
-package org.julleon.service;
+package org.julleon.catalogue.service;
 
-import org.julleon.controller.payload.CreateProductPayload;
-import org.julleon.controller.payload.UpdateProductPayload;
-import org.julleon.entity.Product;
+
+import org.julleon.catalogue.controller.payload.CreateProductPayload;
+import org.julleon.catalogue.controller.payload.UpdateProductPayload;
+import org.julleon.catalogue.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

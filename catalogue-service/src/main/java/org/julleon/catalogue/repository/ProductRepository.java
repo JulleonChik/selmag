@@ -1,6 +1,7 @@
-package org.julleon.repository;
+package org.julleon.catalogue.repository;
 
-import org.julleon.entity.Product;
+
+import org.julleon.catalogue.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

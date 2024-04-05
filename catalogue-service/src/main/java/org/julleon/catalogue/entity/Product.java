@@ -1,4 +1,4 @@
-package org.julleon.entity;
+package org.julleon.catalogue.entity;
 
 
 import lombok.AllArgsConstructor;
