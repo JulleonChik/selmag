@@ -2,7 +2,7 @@ package org.julleon.manager.client;
 
 import org.julleon.manager.controller.payload.CreateProductPayload;
 import org.julleon.manager.controller.payload.UpdateProductPayload;
-import org.julleon.manager.entity.Product;
+import org.julleon.manager.dto.Product;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.julleon.manager.client.exception.BadRequestException;
 import org.julleon.manager.controller.payload.CreateProductPayload;
 import org.julleon.manager.controller.payload.UpdateProductPayload;
-import org.julleon.manager.entity.Product;
+import org.julleon.manager.dto.Product;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.julleon.manager.client.ProductsRestClient;
 import org.julleon.manager.client.exception.BadRequestException;
 import org.julleon.manager.controller.payload.CreateProductPayload;
-import org.julleon.manager.entity.Product;
+import org.julleon.manager.dto.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

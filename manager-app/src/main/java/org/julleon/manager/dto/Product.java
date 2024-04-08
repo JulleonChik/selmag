@@ -1,4 +1,4 @@
-package org.julleon.manager.entity;
+package org.julleon.manager.dto;
 
 public record Product(
         int id,

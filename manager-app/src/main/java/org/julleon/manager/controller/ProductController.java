@@ -6,7 +6,7 @@ import org.julleon.manager.client.ProductsRestClient;
 import org.julleon.manager.client.exception.BadRequestException;
 import org.julleon.manager.controller.payload.UpdateProductPayload;
 
-import org.julleon.manager.entity.Product;
+import org.julleon.manager.dto.Product;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

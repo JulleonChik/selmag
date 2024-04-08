@@ -3,8 +3,14 @@ server:
 spring:
   application:
     name: catalogue-service
+  security:
+    user:
+      name: catalogue_service_user
+      password: '{noop}password'
+      roles:
+        - SERVICE
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalogue
+    url: jdbc:postgresql://localhost:5432/selmag_catalogue
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -15,3 +21,7 @@ spring:
     schemas:
       -public
       -catalogue
+logging:
+  level:
+    sql: info
+    org.springframework.security: trace

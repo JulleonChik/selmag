@@ -1,4 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: manager-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/selmag_manager
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+  flyway:
+    locations: classpath:db/migration
+    schemas:
+      -public
+      -user_management
+
 selmag:
   services:
     catalogue:
       uri: http://localhost:8088
+      username: catalogue_service_user
+      password: password
+
+logging:
+  level:
+    org.springframework.security: trace
