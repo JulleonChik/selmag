@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Product> findAllProducts();
+    Iterable<Product> findAllProducts();
+
+    Iterable<Product> findProductsByTitlePart(String partTitle);
 
     Product createProduct(CreateProductPayload createProductPayload);
 

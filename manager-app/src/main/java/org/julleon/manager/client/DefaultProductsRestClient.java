@@ -16,14 +16,15 @@ import java.util.*;
 @RequiredArgsConstructor
 public class DefaultProductsRestClient implements ProductsRestClient {
 
-    public static final ParameterizedTypeReference<List<Product>> PRODUCTS_TYPE_REFERENCE = new ParameterizedTypeReference<>() {};
+    public static final ParameterizedTypeReference<List<Product>> PRODUCTS_TYPE_REFERENCE = new ParameterizedTypeReference<>() {
+    };
     private final RestClient restClient;
 
     @Override
-    public List<Product> findAllProducts() {
+    public List<Product> findAllProducts(String filter) {
         return this.restClient
                 .get()
-                .uri("catalogue-api/products")
+                .uri("catalogue-api/products?filter={filter}", filter)
                 .retrieve()
                 .body(PRODUCTS_TYPE_REFERENCE);
     }

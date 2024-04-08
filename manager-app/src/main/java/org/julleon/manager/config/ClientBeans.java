@@ -17,4 +17,5 @@ public class ClientBeans {
                         .baseUrl(catalogueBaseUri)
                         .build());
     }
+
 }
