@@ -2,6 +2,7 @@ package org.julleon.catalogue.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.julleon.catalogue.controller.payload.CreateProductPayload;
 import org.julleon.catalogue.entity.Product;
 import org.julleon.catalogue.service.ProductService;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+
+@Slf4j
 
 @RestController
 @RequestMapping("catalogue-api/products")

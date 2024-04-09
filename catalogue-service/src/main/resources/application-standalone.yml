@@ -4,11 +4,10 @@ spring:
   application:
     name: catalogue-service
   security:
-    user:
-      name: catalogue_service_user
-      password: '{noop}password'
-      roles:
-        - SERVICE
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/realms/selmag
   datasource:
     url: jdbc:postgresql://localhost:5432/selmag_catalogue
     username: postgres
