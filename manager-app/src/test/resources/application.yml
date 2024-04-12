@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: manager-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/selmag_manager
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+  flyway:
+    locations: classpath:db/migration
+    schemas:
+      -public
+      -user_management
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/selmag
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: manager-app
+            client-secret: PlhwTbR4ycSGJpMiKW2B4lagyFso0tPv
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
+
+selmag:
+  services:
+    catalogue:
+      uri: http://localhost:12341
+#      registration-id: keycloak
+
+logging:
+  level:
+    org.springframework.security: trace

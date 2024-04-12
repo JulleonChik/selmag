@@ -46,7 +46,6 @@ public class ProductsRestController {
         } else {
             Product product = this.productService.createProduct(productPayload);
             URI uri = uriComponentsBuilder
-
                     .replacePath("/catalogue-api/products/{productId}")
                     .build(Map.of("productId", product.getId()));
             return ResponseEntity

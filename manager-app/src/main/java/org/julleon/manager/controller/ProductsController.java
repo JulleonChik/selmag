@@ -7,7 +7,6 @@ import org.julleon.manager.client.ProductsRestClient;
 import org.julleon.manager.client.exception.BadRequestException;
 import org.julleon.manager.controller.payload.CreateProductPayload;
 import org.julleon.manager.dto.Product;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -28,17 +26,15 @@ public class ProductsController {
 
 
     @GetMapping("create")
-    public String getCreateProductForm() {
+    public String getPageWithFormForCreatingNewProduct() {
         return "catalogue/products/new_product";
     }
 
 
     @GetMapping("list")
-    public String getProductsList(
-            Principal principal,
+    public String getPageWithProductsList(
             @RequestParam(name = "filter", required = false) String filter,
             Model model) {
-        log.info("User Principle:  {}", principal);
         List<Product> allProducts = this.productsRestClient.findAllProducts(filter);
         model.addAttribute("products", allProducts);
         model.addAttribute("filter", filter);
