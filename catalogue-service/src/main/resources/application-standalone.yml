@@ -1,13 +1,11 @@
+
 server:
   port: 8088
+
 spring:
   application:
     name: catalogue-service
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8090/realms/selmag
+
   datasource:
     url: jdbc:postgresql://localhost:5430/selmag_catalogue
     username: catalogue
@@ -20,6 +18,13 @@ spring:
     schemas:
       -public
       -catalogue
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8050/realms/selmag
+
 logging:
   level:
     sql: info

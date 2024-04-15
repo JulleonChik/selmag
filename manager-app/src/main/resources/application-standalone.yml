@@ -4,10 +4,11 @@ server:
 spring:
   application:
     name: manager-app
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/selmag_manager
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5440/manager
+    username: manager
+    password: manager
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -21,12 +22,12 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8090/realms/selmag
+            issuer-uri: http://127.0.0.1:8050/realms/selmag
             user-name-attribute: preferred_username
         registration:
           keycloak:
             client-id: manager-app
-            client-secret: PlhwTbR4ycSGJpMiKW2B4lagyFso0tPv
+            client-secret: onsJgiT6Jetf1mF86MmM6Nht7t0a3v8W
             scope:
               - openid
               - view_catalogue
