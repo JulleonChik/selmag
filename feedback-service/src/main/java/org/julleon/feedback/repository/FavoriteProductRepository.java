@@ -1,11 +1,11 @@
-package org.julleon.customer.repository;
+package org.julleon.feedback.repository;
 
-
-import org.julleon.customer.entity.FavoriteProduct;
+import org.julleon.feedback.entity.FavoriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface FavoriteProductRepository {
+
     Mono<FavoriteProduct> save(FavoriteProduct favoriteProduct);
 
     Mono<Void> deleteByProductId(int productId);

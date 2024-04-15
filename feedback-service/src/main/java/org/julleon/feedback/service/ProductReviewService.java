@@ -1,10 +1,10 @@
-package org.julleon.customer.service;
+package org.julleon.feedback.service;
 
-import org.julleon.customer.entity.ProductReview;
+import org.julleon.feedback.entity.ProductReview;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ProductReviewsService {
+public interface ProductReviewService {
 
     Mono<ProductReview> createProductReview(int productId, int rating, String review);
 

@@ -1,10 +1,10 @@
 package org.julleon.customer.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.julleon.customer.client.FavoriteProductsClient;
 import org.julleon.customer.client.ProductsClient;
 import org.julleon.customer.entity.FavoriteProduct;
 import org.julleon.customer.entity.Product;
-import org.julleon.customer.service.FavoriteProductsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class ProductsController {
 
     private final ProductsClient productsClient;
 
-    private final FavoriteProductsService favoriteProductsService;
+    private final FavoriteProductsClient favoriteProductsClient;
 
     @GetMapping("list")
     public Mono<String> getPageWithProductsList(
@@ -47,8 +47,8 @@ public class ProductsController {
             Model model
     ) {
         model.addAttribute("filter", filter);
-        return this.favoriteProductsService.findAllFavoriteProducts()
-                .map(FavoriteProduct::getProductId)
+        return this.favoriteProductsClient.findAllFavoriteProducts()
+                .map(FavoriteProduct::productId)
                 .collectList()
                 .flatMap(integers ->
                         this.productsClient.getAllProductsWithFilter(filter)

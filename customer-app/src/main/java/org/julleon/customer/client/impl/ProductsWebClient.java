@@ -1,6 +1,7 @@
-package org.julleon.customer.client;
+package org.julleon.customer.client.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.julleon.customer.client.ProductsClient;
 import org.julleon.customer.entity.Product;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;

@@ -1,6 +1,7 @@
-package org.julleon.customer.repository;
+package org.julleon.feedback.repository.impl;
 
-import org.julleon.customer.entity.FavoriteProduct;
+import org.julleon.feedback.entity.FavoriteProduct;
+import org.julleon.feedback.repository.FavoriteProductRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -9,7 +10,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
 
 @Repository
 public class InMemoryFavoriteProductRepository implements FavoriteProductRepository {

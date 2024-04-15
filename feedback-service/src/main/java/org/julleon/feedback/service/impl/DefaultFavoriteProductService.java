@@ -1,8 +1,9 @@
-package org.julleon.customer.service;
+package org.julleon.feedback.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.julleon.customer.entity.FavoriteProduct;
-import org.julleon.customer.repository.FavoriteProductRepository;
+import org.julleon.feedback.entity.FavoriteProduct;
+import org.julleon.feedback.repository.FavoriteProductRepository;
+import org.julleon.feedback.service.FavoriteProductService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultFavoriteProductsService implements FavoriteProductsService {
+public class DefaultFavoriteProductService implements FavoriteProductService {
 
     private final FavoriteProductRepository favoriteProductRepository;
 

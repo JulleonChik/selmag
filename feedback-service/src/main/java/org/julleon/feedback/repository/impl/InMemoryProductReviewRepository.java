@@ -1,6 +1,8 @@
-package org.julleon.customer.repository;
+package org.julleon.feedback.repository.impl;
 
-import org.julleon.customer.entity.ProductReview;
+
+import org.julleon.feedback.entity.ProductReview;
+import org.julleon.feedback.repository.ProductReviewRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

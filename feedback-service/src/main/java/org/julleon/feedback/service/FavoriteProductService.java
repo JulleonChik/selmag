@@ -1,11 +1,10 @@
-package org.julleon.customer.service;
+package org.julleon.feedback.service;
 
-
-import org.julleon.customer.entity.FavoriteProduct;
+import org.julleon.feedback.entity.FavoriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface FavoriteProductsService {
+public interface FavoriteProductService {
 
     Mono<FavoriteProduct> addProductToFavorites(int productId);
 
