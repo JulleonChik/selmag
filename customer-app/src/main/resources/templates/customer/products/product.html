@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.title} + ' - Сельмаг'"></title>
+</head>
+<body>
+<a th:href="@{/customer/products/list}">&larr; К списку товаров</a>
+<ul>
+    <li><strong>ID</strong>:<span th:text="${product.id}"></span></li>
+    <li><strong>Название</strong>: <span th:text="${product.title}"></span></li>
+    <li><strong>Описание</strong>: <span th:text="${product.description}"></span></li>
+</ul>
+<form method="post" th:action="@{/customer/products/{productId}/add-to-favorites(productId=${product.id})}"
+      th:if="${!inFavorites}">
+    <button type="submit">Добавить в избранное</button>
+</form>
+<form method="post" th:action="@{/customer/products/{productId}/remove-from-favorites(productId=${product.id})}"
+      th:if="${inFavorites}">
+    <button type="submit">Удалить из избранного</button>
+</form>
+
+<h3>Отзывы</h3>
+<div th:if="${errors}">
+    <p>Пожалуйста, исправьте следующие ошибки:</p>
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+<form method="post" th:action="@{/customer/products/{productId}/create-review(productId=${product.id})}">
+    <label><input type="radio" name="rating" value="1" th:checked="${productReviewPayload?.rating == 1}">1</label>
+    <label><input type="radio" name="rating" value="2" th:checked="${productReviewPayload?.rating == 2}">2</label>
+    <label><input type="radio" name="rating" value="3" th:checked="${productReviewPayload?.rating == 3}">3</label>
+    <label><input type="radio" name="rating" value="4" th:checked="${productReviewPayload?.rating == 4}">4</label>
+    <label><input type="radio" name="rating" value="5" th:checked="${productReviewPayload?.rating == 5}">5</label>
+    <br>
+    <label><textarea name="review" cols="30" rows="10" th:text="${productReviewPayload?.review}"></textarea></label>
+    <br>
+    <button type="submit">Оставить отзыв</button>
+</form>
+<div th:if="${#lists.isEmpty(reviews)}">Отзывов пока нет</div>
+<div th:each="review : ${reviews}">
+    <p>Оценка: <span th:text="${review.rating}"></span></p>
+    <p>Отзыв: <span th:text="${review.review}"></span></p>
+</div>
+</body>
+</html>

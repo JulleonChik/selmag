@@ -8,9 +8,40 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityBeans {
+
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(
+//            HttpSecurity httpSecurity
+//    ) throws Exception {
+//        return httpSecurity
+//                .csrf(CsrfConfigurer::disable)
+//                .authorizeHttpRequests(managerRequestMatcherRegistry ->
+//                        managerRequestMatcherRegistry
+//                                .requestMatchers(HttpMethod.POST, "/catalogue-api/products")
+//                                .hasAuthority("SCOPE_edit_catalogue")
+//                                .requestMatchers(HttpMethod.PATCH, "/catalogue-api/products/{productId:\\d}")
+//                                .hasAuthority("SCOPE_edit_catalogue")
+//                                .requestMatchers(HttpMethod.DELETE, "/catalogue-api/products/{productId:\\d}")
+//                                .hasAuthority("SCOPE_edit_catalogue")
+//                                .requestMatchers(HttpMethod.GET)
+//                                .hasAuthority("SCOPE_view_catalogue")
+//                                .anyRequest()
+//                                .denyAll()
+//                )
+//                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+//                        httpSecuritySessionManagementConfigurer
+//                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                )
+//                .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
+//                        httpSecurityOAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults())
+//                )
+//                .build();
+//    }
 
 
     @Bean
@@ -21,24 +52,13 @@ public class SecurityBeans {
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(managerRequestMatcherRegistry ->
                         managerRequestMatcherRegistry
-                                .requestMatchers(HttpMethod.POST, "/catalogue-api/products")
-                                .hasAuthority("SCOPE_edit_catalogue")
-                                .requestMatchers(HttpMethod.PATCH, "/catalogue-api/products/{productId:\\d}")
-                                .hasAuthority("SCOPE_edit_catalogue")
-                                .requestMatchers(HttpMethod.DELETE, "/catalogue-api/products/{productId:\\d}")
-                                .hasAuthority("SCOPE_edit_catalogue")
-                                .requestMatchers(HttpMethod.GET)
-                                .hasAuthority("SCOPE_view_catalogue")
-                                .anyRequest()
-                                .denyAll()
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
-                        httpSecurityOAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults())
-                )
                 .build();
     }
+
 }

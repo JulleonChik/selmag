@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сельмаг товары</title>
+</head>
+<body>
+<a th:href="@{/customer/products/favorites}">Избранные товары</a>
+<h1>Список товаров</h1>
+<form>
+    <label>
+        <input type="text" name="filter" th:value="${filter}">
+        <button type="submit">Поиск</button>
+    </label>
+</form>
+<ul>
+    <li th:each="product : ${products}">
+        <strong>
+            <a th:href="@{/customer/products/{productId}(productId=${product.id})}"
+               th:text="${product.title}"></a>
+        </strong>
+        <p th:text="${product.description}"></p>
+    </li>
+</ul>
+</body>
+</html>

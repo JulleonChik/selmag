@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: customer-app
+
+
+
+#project variables
+selmag:
+  services:
+    catalogue:
+      uri: http://localhost:8088
