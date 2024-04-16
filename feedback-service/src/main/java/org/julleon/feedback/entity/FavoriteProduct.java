@@ -16,5 +16,6 @@ import java.util.UUID;
 public class FavoriteProduct {
     @Id
     private UUID id;
+    private String userId;
     private int productId;
 }

@@ -8,6 +8,10 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/feedback-service
 
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8050/realms/selmag
 
 #project variables

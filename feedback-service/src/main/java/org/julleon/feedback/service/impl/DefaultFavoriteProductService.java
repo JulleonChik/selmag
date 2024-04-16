@@ -19,22 +19,22 @@ public class DefaultFavoriteProductService implements FavoriteProductService {
 
 
     @Override
-    public Mono<FavoriteProduct> addProductToFavorites(int productId) {
-        return this.favoriteProductRepository.save(new FavoriteProduct(UUID.randomUUID(), productId));
+    public Mono<FavoriteProduct> addProductToFavorites(String userId, int productId) {
+        return this.favoriteProductRepository.save(new FavoriteProduct(UUID.randomUUID(), userId, productId));
     }
 
     @Override
-    public Mono<Void> removeProductFromFavorites(int productId) {
-        return this.favoriteProductRepository.deleteByProductId(productId);
+    public Mono<Void> removeProductFromFavorites(String userId, int productId) {
+        return this.favoriteProductRepository.deleteByUserIdAndProductId(userId, productId);
     }
 
     @Override
-    public Mono<FavoriteProduct> findFavoriteProductByProductId(int productId) {
-        return this.favoriteProductRepository.findByProductId(productId);
+    public Mono<FavoriteProduct> findFavoriteProductByUserAndProductId(String userId, int productId) {
+        return this.favoriteProductRepository.findByUserIdAndProductId(userId, productId);
     }
 
     @Override
-    public Flux<FavoriteProduct> findAllFavoriteProducts() {
-        return this.favoriteProductRepository.findAll();
+    public Flux<FavoriteProduct> findAllFavoriteProductsByUserId(String userId) {
+        return this.favoriteProductRepository.findAllByUserId(userId);
     }
 }

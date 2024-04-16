@@ -15,6 +15,7 @@ import java.util.UUID;
 public class ProductReview {
     @Id
     private UUID id;
+    private String userId;
     private int productId;
     private int rating;
     private String review;

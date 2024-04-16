@@ -8,14 +8,16 @@ import org.julleon.customer.client.ProductsClient;
 import org.julleon.customer.client.exception.ClientBadRequestException;
 import org.julleon.customer.controller.payload.ProductReviewPayload;
 import org.julleon.customer.entity.Product;
+import org.springframework.security.web.reactive.result.view.CsrfRequestDataValueProcessor;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -29,6 +31,16 @@ public class ProductController {
 
     private final ProductReviewsClient productReviewsClient;
 
+
+    @ModelAttribute
+    public Mono<CsrfToken> loadCsrfToken(
+            ServerWebExchange serverWebExchange
+    ) {
+//   ---------------------------------------------  dirty pagan magic --------------------------------
+        return Objects.requireNonNull(serverWebExchange.<Mono<CsrfToken>>getAttribute(CsrfToken.class.getName()))
+                .doOnSuccess(csrfToken -> serverWebExchange.getAttributes()
+                        .put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, csrfToken));
+    }
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> getProduct(

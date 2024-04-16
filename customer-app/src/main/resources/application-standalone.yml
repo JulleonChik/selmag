@@ -3,8 +3,22 @@ server:
 spring:
   application:
     name: customer-app
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://127.0.0.1:8050/realms/selmag
+            user-name-attribute: preferred_username
 
-
+        registration:
+          keycloak:
+            client-id: customer-app
+            client-secret: F390drQtax5QRfKGKH7wha5bgOfaDFpg
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - view_catalogue
 
 #project variables
 selmag:
