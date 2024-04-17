@@ -14,8 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.security.Principal;
-
 @RestController
 @RequestMapping("feedback-api/product-reviews")
 @RequiredArgsConstructor
@@ -31,25 +29,25 @@ public class ProductReviewsRestController {
             @Valid @RequestBody Mono<ProductReviewPayload> payloadMono,
             UriComponentsBuilder uriComponentsBuilder
     ) {
-        return authenticationTokenMono.flatMap(jwtAuthenticationToken -> payloadMono
-                .flatMap(payload ->
-                        this.productReviewService
-                                .createProductReview(
-                                        payload.productId(), payload.rating(),
-                                        payload.review(), jwtAuthenticationToken.getToken().getSubject())
-                )
-                .map(productReview ->
-                        ResponseEntity.created(uriComponentsBuilder
-                                        .replacePath("feedback-api/product-reviews/{productReviewId}").build(productReview.getId()))
-                                .body(productReview)
-                ));
+        return authenticationTokenMono
+                .flatMap(jwtAuthenticationToken ->
+                        payloadMono
+                                .flatMap(payload ->
+                                        this.productReviewService.createProductReview(
+                                                payload.productId(), payload.rating(),
+                                                payload.review(), jwtAuthenticationToken.getToken().getSubject()))
+                                .map(productReview ->
+                                        ResponseEntity
+                                                .created(uriComponentsBuilder.replacePath("feedback-api/product-reviews/{productReviewId}").build(productReview.getId()))
+                                                .body(productReview)
+                                )
+                );
     }
 
 
     //    Получение списка отзывов о товаре
     @GetMapping("by-product-id/{productId:\\d+}")
     public Flux<ProductReview> findProductReviewsByProductId(
-            Mono<JwtAuthenticationToken> principalMono,
             @PathVariable("productId") int productId
     ) {
         return this.productReviewService.findProductReviewsByProductId(productId);

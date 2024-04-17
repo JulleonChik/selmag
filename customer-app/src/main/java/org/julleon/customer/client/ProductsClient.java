@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 public interface ProductsClient {
     Flux<Product> getAllProductsWithFilter(String filter);
 
-    Mono<Product> getProduct(String productId);
+    Mono<Product> getProduct(int productId);
 }

@@ -8,6 +8,8 @@ import org.julleon.customer.client.ProductsClient;
 import org.julleon.customer.client.exception.ClientBadRequestException;
 import org.julleon.customer.controller.payload.ProductReviewPayload;
 import org.julleon.customer.entity.Product;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.web.reactive.result.view.CsrfRequestDataValueProcessor;
 import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
@@ -44,10 +46,11 @@ public class ProductController {
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> getProduct(
-            @PathVariable("productId") String productId
+            @PathVariable("productId") int productId
     ) {
         return this.productsClient.getProduct(productId)
-                .switchIfEmpty(Mono.error(new NoSuchElementException("customer.products.error.product.not_found")));
+                .switchIfEmpty(Mono.defer(
+                        () -> Mono.error(new NoSuchElementException("customer.products.error.product.not_found"))));
     }
 
 
@@ -99,7 +102,8 @@ public class ProductController {
                                             log.error(exception.getMessage(), exception);
                                             return Mono.just("redirect:/customer/products/%d".formatted(product.id()));
                                         }
-                                ));
+                                )
+                );
     }
 
 
@@ -116,8 +120,10 @@ public class ProductController {
     @ExceptionHandler(NoSuchElementException.class)
     public String handleNoSuchElementException(
             NoSuchElementException e,
-            Model model
+            Model model,
+            ServerHttpResponse serverHttpResponse
     ) {
+        serverHttpResponse.setStatusCode(HttpStatus.NOT_FOUND);
         model.addAttribute("error", e.getMessage());
         return "errors/404";
     }
