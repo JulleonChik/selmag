@@ -1,6 +1,8 @@
 package org.julleon.feedback.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,9 @@ public class ProductReviewsRestController {
 
 
     //    Получение списка отзывов о товаре
+    @Operation(
+            security = @SecurityRequirement(name = "keycloak")
+    )
     @GetMapping("by-product-id/{productId:\\d+}")
     public Flux<ProductReview> findProductReviewsByProductId(
             @PathVariable("productId") int productId

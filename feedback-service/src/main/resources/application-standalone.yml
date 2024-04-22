@@ -1,5 +1,6 @@
 server:
   port: 8889
+  address: http://localhost:8889
 
 spring:
   application:
@@ -14,4 +15,13 @@ spring:
         jwt:
           issuer-uri: http://127.0.0.1:8050/realms/selmag
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: feedback-service-swagger-ui
+      use-pkce-with-authorization-code-grant: true
+
 #project variables
+
+keycloak:
+  uri: http://127.0.0.1:8050

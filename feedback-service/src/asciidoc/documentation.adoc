@@ -1,0 +1,19 @@
+= Rest API: feedback-service
+:toc: left
+
+== Product Review
+=== Create Product Review
+.Request:
+include::{snippets}/feedback/product_reviews/create_product_review/http-request.adoc[]
+include::{snippets}/feedback/product_reviews/create_product_review/request-fields.adoc[]
+.Request Body:
+include::{snippets}/feedback/product_reviews/create_product_review/request-body.adoc[]
+
+.Response:
+include::{snippets}/feedback/product_reviews/create_product_review/http-response.adoc[]
+
+include::{snippets}/feedback/product_reviews/create_product_review/response-headers.adoc[]
+include::{snippets}/feedback/product_reviews/create_product_review/response-fields.adoc[]
+
+.Response body:
+include::{snippets}/feedback/product_reviews/create_product_review/response-body.adoc[]

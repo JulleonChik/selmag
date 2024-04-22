@@ -15,10 +15,14 @@ public class SecurityBeans {
     public SecurityWebFilterChain securityWebFilterChain(
             ServerHttpSecurity serverHttpSecurity
     ) {
-       return serverHttpSecurity
+        return serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec.anyExchange().authenticated())
+                .authorizeExchange(authorizeExchangeSpec -> {
+                    authorizeExchangeSpec
+                            .pathMatchers("/webjars/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                            .anyExchange().authenticated();
+                })
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()))
                 .build();
     }

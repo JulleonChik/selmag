@@ -1,0 +1,13 @@
+= Rest API: catalogue-service
+:toc: left
+
+== Rest API for Product
+=== Get product by ID
+.Response body:
+include::{snippets}/catalogue/products/find_product/response-body.adoc[]
+
+.Description fields of product
+include::{snippets}/catalogue/products/find_product/response-fields.adoc[]
+
+
+

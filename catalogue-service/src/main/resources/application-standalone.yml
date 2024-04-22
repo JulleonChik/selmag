@@ -25,7 +25,17 @@ spring:
         jwt:
           issuer-uri: http://127.0.0.1:8050/realms/selmag
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: catalogue-service-swagger-ui
+      use-pkce-with-authorization-code-grant: true
+
+keycloak:
+  uri: http://127.0.0.1:8050
+
 logging:
   level:
     sql: info
     org.springframework.security: trace
+

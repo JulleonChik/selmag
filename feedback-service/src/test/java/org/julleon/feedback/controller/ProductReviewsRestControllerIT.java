@@ -6,12 +6,19 @@ import org.julleon.feedback.entity.ProductReview;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.headers.HeaderDocumentation;
+import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation;
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -19,7 +26,9 @@ import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
+@AutoConfigureRestDocs
 @AutoConfigureWebTestClient
+@ExtendWith(RestDocumentationExtension.class)
 class ProductReviewsRestControllerIT {
 
     @Autowired
@@ -68,7 +77,6 @@ class ProductReviewsRestControllerIT {
     }
 
 
-
     @Test
     void testFindProductReviewsByProductId_conditionUserIsNotAuthenticated_ReturnsNotAuthorized() {
 //                when
@@ -108,7 +116,32 @@ class ProductReviewsRestControllerIT {
                 .jsonPath("$.userId").isEqualTo(subject)
                 .jsonPath("$.productId").isEqualTo(payload.productId())
                 .jsonPath("$.rating").isEqualTo(payload.rating())
-                .jsonPath("$.review").isEqualTo(payload.review());
+                .jsonPath("$.review").isEqualTo(payload.review())
+                .consumeWith(WebTestClientRestDocumentation
+                        .document(
+                                "/feedback/product_reviews/create_product_review",
+
+                                Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                                Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+
+                                PayloadDocumentation.requestFields(
+                                        PayloadDocumentation.fieldWithPath("productId").type("string").description("Product ID"),
+                                        PayloadDocumentation.fieldWithPath("rating").type("int").description("Rating"),
+                                        PayloadDocumentation.fieldWithPath("review").type("string").description("Product Review")
+                                ),
+
+                                HeaderDocumentation.responseHeaders(
+                                        HeaderDocumentation.headerWithName(HttpHeaders.LOCATION).description("Link to the created Product Review")
+                                ),
+                                PayloadDocumentation.responseFields(
+                                        PayloadDocumentation.fieldWithPath("id").type("uuid").description("ProductReview ID"),
+                                        PayloadDocumentation.fieldWithPath("userId").type("string").description("User ID"),
+                                        PayloadDocumentation.fieldWithPath("productId").type("string").description("Product ID"),
+                                        PayloadDocumentation.fieldWithPath("rating").type("int").description("Rating"),
+                                        PayloadDocumentation.fieldWithPath("review").type("string").description("Product Review")
+                                )
+                        )
+                );
 
 
     }
